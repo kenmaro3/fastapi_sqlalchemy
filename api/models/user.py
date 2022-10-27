@@ -1,8 +1,9 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from db import Base
-
+from api.db import Base
+from api.models.supplier import Supplier
+from api.models.buyer import Buyer
+from api.models.project import Project
 
 class User(Base):
     __tablename__ = 'user'

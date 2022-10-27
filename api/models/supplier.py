@@ -1,7 +1,6 @@
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from db import Base
+from api.db import Base
 
 class Supplier(Base):
     __tablename__ = 'supplier'
