@@ -10,12 +10,12 @@ class OptimizedValue(Base):
 
     # foreign key
     model_id = Column(Integer, ForeignKey("model.id"))
-    model = relationship("model", back_populates="optimized_values")
+    model = relationship("Model", back_populates="optimized_values")
 
     # foreign key
     data_id = Column(Integer, ForeignKey("data.id"))
-    data = relationship("data", back_populates="optimized_values")
+    data = relationship("Data", back_populates="optimized_values")
 
     # foreign key
     project_id = Column(Integer, ForeignKey("project.id"))
-    project = relationship("project", back_populates="optimized_values")
+    project = relationship("Project", back_populates="optimized_values")

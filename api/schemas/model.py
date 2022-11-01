@@ -1,4 +1,9 @@
 from pydantic import BaseModel
+from typing import List, Optional
+
+from api.schemas.optimized_value import OptimizedValue
+
+from api.schemas.preprocess_data import PreprocessData
 
 class ModelBase(BaseModel):
     project_id: int
@@ -13,14 +18,18 @@ class ModelBase(BaseModel):
 class ModelCreate(ModelBase):
     pass
 
-class ModelCreateResponse(ModelCreate):
+class ModelCreateResponse(ModelBase):
     id: int
 
     class Config:
         orm_mode = True
 
-class Model(ModelBase):
+class ModelInDB(ModelBase):
     id: int
 
     class Config:
         orm_mode = True
+
+class Model(ModelInDB):
+    preprocess_datas: List[PreprocessData]
+    optimized_values: List[OptimizedValue]

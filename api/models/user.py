@@ -4,6 +4,7 @@ from api.db import Base
 from api.models.supplier import Supplier
 from api.models.buyer import Buyer
 from api.models.project import Project
+from api.models.data import Data
 
 class User(Base):
     __tablename__ = 'user'
@@ -15,3 +16,5 @@ class User(Base):
     suppliers = relationship("Supplier", back_populates="user")
     # relation
     buyers = relationship("Buyer", back_populates="user")
+    # relation
+    datas = relationship("Data", back_populates="user")

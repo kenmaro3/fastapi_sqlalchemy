@@ -17,7 +17,7 @@ async def list_users(db: AsyncSession = Depends(get_db)):
 
 @router.post("/users", response_model=user_schema.UserCreateResponse)
 async def create_user(
-    user_body: user_schema.UserCreate,
+    user_body: user_schema.UserCreateRequest,
     db: AsyncSession = Depends(get_db)
 ):
     return await user_crud.create_user(db, user_body)
@@ -25,7 +25,7 @@ async def create_user(
 
 @router.put("/users/{user_id}", response_model=user_schema.UserCreateResponse)
 async def update_user(
-    user_id: int, user_body: user_schema.UserCreate,
+    user_id: int, user_body: user_schema.UserUpdateRequest,
     db: AsyncSession = Depends(get_db)
 ):
     user = await user_crud.get_user(db, user_id=user_id)

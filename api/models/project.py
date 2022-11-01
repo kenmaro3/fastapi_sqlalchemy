@@ -23,3 +23,5 @@ class Project(Base):
    preprocess_datas = relationship("PreprocessData", back_populates="project")
    # relation
    optimized_values = relationship("OptimizedValue", back_populates="project")
+   # relation
+   datas = relationship("Data", back_populates="project")

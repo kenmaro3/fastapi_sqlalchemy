@@ -12,11 +12,11 @@ class Data(Base):
     
     # foreign key
     user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("user", back_populates="datas")
+    user = relationship("User", back_populates="datas")
 
     # foreign key
     project_id = Column(Integer, ForeignKey("project.id"))
-    project = relationship("project", back_populates="datas")
+    project = relationship("Project", back_populates="datas")
 
     # relation
     preprocess_datas = relationship("PreprocessData", back_populates="data")

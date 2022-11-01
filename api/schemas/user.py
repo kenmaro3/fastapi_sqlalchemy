@@ -1,12 +1,26 @@
 from pydantic import BaseModel
+from typing import List
+
+from api.schemas.project import Project
 
 class UserBase(BaseModel):
     name: str
 
-class UserCreate(UserBase):
-    pass
+class UserCreateRequest(UserBase):
+    name: str
+    password: str
 
-class UserCreateResponse(UserCreate):
+class UserUpdateRequest(UserBase):
+    name: str
+    password: str
+
+class UserCreateResponse(UserBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+class UserUpdateResponse(UserBase):
     id: int
 
     class Config:
@@ -14,6 +28,8 @@ class UserCreateResponse(UserCreate):
 
 class User(UserBase):
     id: int
+    name: str
+    projects: List[Project]
 
     class Config:
         orm_mode = True

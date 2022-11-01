@@ -8,14 +8,14 @@ class PreprocessData(Base):
 
     # foreign key
     model_id = Column(Integer, ForeignKey("model.id"))
-    model = relationship("model", back_populates="preprocess_datas")
+    model = relationship("Model", back_populates="preprocess_datas")
 
     # foreign key
     data_id = Column(Integer, ForeignKey("data.id"))
-    data = relationship("data", back_populates="preprocess_datas")
+    data = relationship("Data", back_populates="preprocess_datas")
 
     # foreign key
     project_id = Column(Integer, ForeignKey("project.id"))
-    project = relationship("project", back_populates="preprocess_datas")
+    project = relationship("Project", back_populates="preprocess_datas")
 
     preprocess_type = Column(String(30))

@@ -9,7 +9,7 @@ import api.schemas.user as user_schema
 
 
 async def create_user(
-    db: AsyncSession, user_create: user_schema.UserCreate
+    db: AsyncSession, user_create: user_schema.UserCreateRequest
 ) -> user_model.User:
     user = user_model.User(**user_create.dict())
     db.add(user)
@@ -39,7 +39,7 @@ async def get_user(db: AsyncSession, user_id: int) -> Optional[user_model.User]:
 
 
 async def update_user(
-    db: AsyncSession, user_create: user_schema.UserCreate,
+    db: AsyncSession, user_create: user_schema.UserUpdateRequest,
     original: user_model.User
 ) -> user_model.User:
     original.name = user_create.name
