@@ -1,18 +1,22 @@
 from email.policy import HTTP
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from typing import List
+from typing import List, Optional
 
 from api.schemas import user as user_schema
 import api.cruds.user as user_crud
 from api.db import get_db
 
-router = APIRouter()
+from api.routers.base import router
 
 
 @router.get("/users", response_model=List[user_schema.User])
 async def list_users(db: AsyncSession = Depends(get_db)):
     return await user_crud.get_users(db)
+
+@router.get("/users/{user_id}", response_model=Optional[user_schema.User])
+async def get_user(user_id: int, db: AsyncSession = Depends(get_db)):
+    return await user_crud.get_user(db, user_id=user_id)
 
 
 @router.post("/users", response_model=user_schema.UserCreateResponse)

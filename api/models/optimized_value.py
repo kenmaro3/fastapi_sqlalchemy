@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from api.db import Base
-from api.models.supplier import Supplier
 
 
 class OptimizedValue(Base):

@@ -2,11 +2,11 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from api.db import Base
 
-from api.models.supplier import Supplier
-from api.models.buyer import Buyer
+from api.models.intermediate_user_project import IntermediateUserProject
 from api.models.model import Model
 from api.models.preprocess_data import PreprocessData
 from api.models.optimized_value import OptimizedValue
+from api.schemas import intermediate_user_project
 
 class Project(Base):
    __tablename__ = "project"
@@ -14,9 +14,7 @@ class Project(Base):
    name = Column(String(length=30))
 
    # relation
-   suppliers = relationship("Supplier", back_populates="project")
-   # relation
-   buyers = relationship("Buyer", back_populates="project")
+   intermediate_user_projects = relationship("IntermediateUserProject", back_populates="project")
    # relation
    models = relationship("Model", back_populates="project")
    # relation

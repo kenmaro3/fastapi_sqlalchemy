@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 from api.schemas.project import Project
 
@@ -29,7 +29,7 @@ class UserUpdateResponse(UserBase):
 class User(UserBase):
     id: int
     name: str
-    projects: List[Project]
+    projects: Optional[List[Project]]
 
     class Config:
         orm_mode = True

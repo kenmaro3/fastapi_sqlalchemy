@@ -2,8 +2,7 @@ import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from api.db import Base
 from api.models.user import User
-from api.models.supplier import Supplier
-from api.models.buyer import Buyer
+from api.models.intermediate_user_project import IntermediateUserProject
 from api.models.project import Project
 from api.models.model import Model
 from api.models.preprocess_data import PreprocessData

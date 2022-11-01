@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from api.db import Base
-from api.models.supplier import Supplier
-from api.models.buyer import Buyer
+from api.models.intermediate_user_project import IntermediateUserProject
 from api.models.project import Project
 from api.models.data import Data
 
@@ -13,8 +12,6 @@ class User(Base):
     password = Column(String(length=30))
 
     # relation
-    suppliers = relationship("Supplier", back_populates="user")
-    # relation
-    buyers = relationship("Buyer", back_populates="user")
+    intermediate_user_projects = relationship("IntermediateUserProject", back_populates="user")
     # relation
     datas = relationship("Data", back_populates="user")
