@@ -2,13 +2,23 @@ from pydantic import BaseModel
 from typing import List, Optional
 from api.schemas import optimized_value
 
+#from api.schemas.user import UserBase
+
 #from api.schemas.model import Model
 #from api.schemas.preprocess_data import PreprocessData
 #from api.schemas.optimized_value import OptimizedValue
 #from api.schemas.data import Data
 
+class UserBase(BaseModel):
+    name: Optional[str]
+    class Config:
+        orm_mode = True
+
 class ProjectBase(BaseModel):
+    id: int
     name: str
+    class Config:
+        orm_mode = True
 
 class ProjectCreateRequest(ProjectBase):
     user_id: int
@@ -17,19 +27,15 @@ class ProjectCreateRequest(ProjectBase):
 class ProjectCreateResponse(ProjectBase):
     id: int
 
-    class Config:
-        orm_mode = True
 
 
-class ProjectJoinRequest(ProjectBase):
+class ProjectJoinRequest(BaseModel):
     user_id: int
     role: str
 
 class ProjectJoinResponse(ProjectBase):
     id: int
 
-    class Config:
-        orm_mode = True
 
 
 class ProjectUpdateRequest(ProjectBase):
@@ -39,19 +45,11 @@ class ProjectUpdateRequest(ProjectBase):
 class ProjectUpdateResponse(ProjectBase):
     id: int
 
-    class Config:
-        orm_mode = True
 
 
-class ProjectInDB(ProjectBase):
+class Project(ProjectBase):
     id: int
-
-    class Config:
-        orm_mode = True
-
-class Project(ProjectInDB):
-    id: int
-    pass
+    users: List[UserBase]
     #models: List[Model]
     #preprocess_datas: List[PreprocessData]
     #optimized_values: List[OptimizedValue]

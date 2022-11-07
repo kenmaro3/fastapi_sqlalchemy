@@ -1,6 +1,6 @@
 from email.policy import HTTP
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import Session
 from typing import List
 
 from api.schemas import supplier as supplier_schema
@@ -11,13 +11,13 @@ from api.routers.base import router
 
 
 @router.get("/datas", response_model=List[supplier_schema.Data])
-async def list_datas(db: AsyncSession = Depends(get_db)):
+async def list_datas(db: Session = Depends(get_db)):
     return await supplier_crud.get_datas(db)
 
 @router.post("/datas", response_model=supplier_schema.DataCreateResponse)
 async def create_supplier(
     supplier_body: supplier_schema.DataCreateRequest,
-    db: AsyncSession = Depends(get_db)
+    db: Session = Depends(get_db)
 ):
     return await supplier_crud.create_supplier(db, supplier_body)
 
@@ -25,7 +25,7 @@ async def create_supplier(
 @router.put("/datas/{supplier_id}", response_model=supplier_schema.DataUpdateResponse)
 async def update_supplier(
     supplier_id: int, supplier_body: supplier_schema.DataUpdateRequest,
-    db: AsyncSession = Depends(get_db)
+    db: Session = Depends(get_db)
 ):
     supplier = await supplier_crud.get_supplier(db, supplier_id=supplier_id)
     if supplier is None:
@@ -36,7 +36,7 @@ async def update_supplier(
 
 
 @router.delete("/datas/{supplier_id}", response_model=None)
-async def delete_supplier(supplier_id: int, db: AsyncSession = Depends(get_db)):
+async def delete_supplier(supplier_id: int, db: Session = Depends(get_db)):
     supplier = await supplier_crud.get_supplier(db, supplier_id=supplier_id)
     if supplier is None:
         raise HTTPException(status_code=404, detal="Data not fount")

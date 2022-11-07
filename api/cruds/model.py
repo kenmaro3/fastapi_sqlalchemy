@@ -1,5 +1,5 @@
 from typing import List, Tuple, Optional
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import Session
 
 from sqlalchemy import select
 from sqlalchemy.engine import Result
@@ -9,7 +9,7 @@ import api.schemas.preprocess_data as preprocess_data_schema
 
 
 async def create_preprocess_data(
-    db: AsyncSession, preprocess_data_create: preprocess_data_schema.PreprocessDataCreate
+    db: Session, preprocess_data_create: preprocess_data_schema.PreprocessDataCreate
 ) -> preprocess_data_model.PreprocessData:
     preprocess_data = preprocess_data_model.PreprocessData(**preprocess_data_create.dict())
     db.add(preprocess_data)
@@ -18,7 +18,7 @@ async def create_preprocess_data(
     return preprocess_data
 
 
-async def get_preprocess_datas(db: AsyncSession) -> List[Tuple[str]]:
+async def get_preprocess_datas(db: Session) -> List[Tuple[str]]:
     result: Result = await(
         db.execute(
             select(
@@ -31,7 +31,7 @@ async def get_preprocess_datas(db: AsyncSession) -> List[Tuple[str]]:
     return result.all()
 
 
-async def get_preprocess_data(db: AsyncSession, preprocess_data_id: int) -> Optional[preprocess_data_model.PreprocessData]:
+async def get_preprocess_data(db: Session, preprocess_data_id: int) -> Optional[preprocess_data_model.PreprocessData]:
     result: Result = await db.execute(
         select(preprocess_data_model.PreprocessData).filter(preprocess_data_model.PreprocessData.id == preprocess_data_id)
     )
@@ -40,7 +40,7 @@ async def get_preprocess_data(db: AsyncSession, preprocess_data_id: int) -> Opti
 
 
 async def update_preprocess_data(
-    db: AsyncSession, preprocess_data_create: preprocess_data_schema.PreprocessDataCreate,
+    db: Session, preprocess_data_create: preprocess_data_schema.PreprocessDataCreate,
     original: preprocess_data_model.PreprocessData
 ) -> preprocess_data_model.PreprocessData:
     original.name = preprocess_data_create.name
@@ -50,6 +50,6 @@ async def update_preprocess_data(
     return original
 
 
-async def delete_preprocess_data(db: AsyncSession, original: preprocess_data_model.PreprocessData) -> None:
+async def delete_preprocess_data(db: Session, original: preprocess_data_model.PreprocessData) -> None:
     await db.delete(original)
     await db.commit()

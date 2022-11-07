@@ -10,15 +10,15 @@ class Data(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     ref = Column(String(length=30))
     
-    # foreign key
-    user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", back_populates="datas")
+    ## foreign key
+    #user_id = Column(Integer, ForeignKey("user.id"))
+    #user = relationship("User", back_populates="datas")
 
-    # foreign key
-    project_id = Column(Integer, ForeignKey("project.id"))
-    project = relationship("Project", back_populates="datas")
+    ## foreign key
+    #project_id = Column(Integer, ForeignKey("project.id"))
+    #project = relationship("Project", back_populates="datas")
 
-    # relation
-    preprocess_datas = relationship("PreprocessData", back_populates="data")
-    # relation
-    optimized_values = relationship("OptimizedValue", back_populates="data")
+    ## relation
+    #preprocess_datas = relationship("PreprocessData", back_populates="data")
+    ## relation
+    #optimized_values = relationship("OptimizedValue", back_populates="data")

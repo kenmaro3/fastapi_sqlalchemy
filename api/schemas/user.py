@@ -1,10 +1,12 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
-from api.schemas.project import Project
+from api.schemas.project import Project, ProjectBase
 
 class UserBase(BaseModel):
     name: str
+    class Config:
+        orm_mode = True
 
 class UserCreateRequest(UserBase):
     name: str
@@ -17,19 +19,12 @@ class UserUpdateRequest(UserBase):
 class UserCreateResponse(UserBase):
     id: int
 
-    class Config:
-        orm_mode = True
-
 class UserUpdateResponse(UserBase):
     id: int
 
-    class Config:
-        orm_mode = True
-
 class User(UserBase):
     id: int
-    name: str
-    projects: Optional[List[Project]]
+    projects: Optional[List[ProjectBase]]
 
     class Config:
         orm_mode = True

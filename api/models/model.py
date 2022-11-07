@@ -8,14 +8,14 @@ class Model(Base):
     __tablename__ = "model"
     id = Column(Integer, primary_key=True, autoincrement=True)
 
-    # relation
-    preprocess_datas = relationship("PreprocessData", back_populates="model")
-    # relation
-    optimized_values = relationship("OptimizedValue", back_populates="model")
+    ## relation
+    #preprocess_datas = relationship("PreprocessData", back_populates="model")
+    ## relation
+    #optimized_values = relationship("OptimizedValue", back_populates="model")
 
-    # foreign key
-    project_id = Column(Integer, ForeignKey("project.id"))
-    project = relationship("Project", back_populates="models")
+    ## foreign key
+    #project_id = Column(Integer, ForeignKey("project.id"))
+    #project = relationship("Project", back_populates="models")
 
     ref = Column(String(length=30))
     status = Column(String(length=30))
