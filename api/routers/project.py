@@ -13,17 +13,17 @@ from api.db import get_db
 from api.routers.base import router
 
 
-@router.get("/projects", response_model=List[project_schema.Project])
+@router.get("/projects", response_model=List[project_schema.Project], response_model_exclude={'role'}, response_model_by_alias=False)
 async def list_projects(db: Session = Depends(get_db)):
     return await project_crud.get_projects(db)
 
-@router.get("/projects/{project_id}", response_model=Optional[project_schema.Project])
+@router.get("/projects/{project_id}", response_model=Optional[project_schema.Project], response_model_exclude={'role'}, response_model_by_alias=False)
 async def get_project(
     project_id: int, db: Session = Depends(get_db)
 ):
     return await project_crud.get_project(db, project_id=project_id)
 
-@router.get("/projects/user/{user_id}", response_model=List[project_schema.Project])
+@router.get("/projects/user/{user_id}", response_model=List[project_schema.Project], response_model_exclude={'role'}, response_model_by_alias=False)
 async def get_project_by_user_id(
     user_id: int, db: Session = Depends(get_db)
 ):

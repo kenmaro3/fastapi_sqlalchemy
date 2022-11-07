@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 from api.schemas import optimized_value
 
@@ -10,17 +10,23 @@ from api.schemas import optimized_value
 #from api.schemas.data import Data
 
 class UserBase(BaseModel):
-    name: Optional[str]
+    id: int = Field(alias="user_id")
+    name: str = Field(alias="user_name")
+    role: Optional[str]
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
 class ProjectBase(BaseModel):
-    id: int
-    name: str
+    id: int = Field(alias="project_id")
+    name: str = Field(alias="project_name")
+    role: Optional[str]
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
-class ProjectCreateRequest(ProjectBase):
+class ProjectCreateRequest(BaseModel):
+    name: str
     user_id: int
     role: str
 
@@ -48,7 +54,6 @@ class ProjectUpdateResponse(ProjectBase):
 
 
 class Project(ProjectBase):
-    id: int
     users: List[UserBase]
     #models: List[Model]
     #preprocess_datas: List[PreprocessData]

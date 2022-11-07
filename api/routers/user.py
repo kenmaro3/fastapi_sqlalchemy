@@ -11,11 +11,11 @@ from api.db import get_db
 from api.routers.base import router
 
 
-@router.get("/users", response_model=List[user_schema.User])
+@router.get("/users", response_model=List[user_schema.User], response_model_exclude={'role'}, response_model_by_alias=False)
 async def list_users(db: Session = Depends(get_db)):
     return await user_crud.get_users(db)
 
-@router.get("/users/{user_id}", response_model=Optional[user_schema.User])
+@router.get("/users/{user_id}", response_model=Optional[user_schema.User], response_model_exclude={'role'}, response_model_by_alias=False)
 async def get_user(user_id: int, db: Session = Depends(get_db)):
     return await user_crud.get_user(db, user_id=user_id)
 

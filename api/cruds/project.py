@@ -8,6 +8,8 @@ from sqlalchemy.orm import joinedload
 import api.models.project as project_model
 import api.schemas.project as project_schema
 
+import api.models.user_project as user_project_model
+
 import api.cruds.user as user_cruds
 
 
@@ -15,15 +17,22 @@ async def create_project(
     db: Session, project_create: project_schema.ProjectCreateRequest
 ) -> project_model.Project:
     #project = project_model.Project(**project_create.dict())
-    user = user_cruds.get_user(db, project_create.user_id)
+    user = await user_cruds.get_user(db, project_create.user_id)
     project = project_model.Project(
         name=project_create.name
     )
-    project.users.append(user)
-
+    #project.users.append(user)
     db.add(project)
     db.commit()
-    db.refresh(project) 
+
+    user_project = user_project_model.UserProject(
+        user_id=user.id, project_id=project.id,
+        role=project_create.role
+    )
+
+    db.add(user_project)
+    db.commit()
+    #db.refresh(project) 
     return project
 
 
@@ -55,7 +64,7 @@ async def get_project_by_user_id(db: Session, user_id: int) -> List[Tuple[projec
     res = []
     for project in projects:
         for user in project.users:
-            if user.id == user_id:
+            if user.user.id == user_id:
                 res.append(project)
                 continue
     return res

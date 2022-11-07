@@ -1,14 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 
 from api.schemas.project import Project, ProjectBase
 
 class UserBase(BaseModel):
-    name: str
+    id: int = Field(alias="user_id")
+    name: str = Field(alias="user_name")
+    role: Optional[str]
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
-class UserCreateRequest(UserBase):
+class UserCreateRequest(BaseModel):
     name: str
     password: str
 
@@ -23,7 +26,6 @@ class UserUpdateResponse(UserBase):
     id: int
 
 class User(UserBase):
-    id: int
     projects: Optional[List[ProjectBase]]
 
     class Config:

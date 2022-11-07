@@ -9,6 +9,8 @@ from sqlalchemy.orm import joinedload
 import api.models.user as user_model
 import api.schemas.user as user_schema
 
+import api.models.user_project as user_project_model
+
 
 async def create_user(
     db: Session, user_create: user_schema.UserCreateRequest
@@ -48,7 +50,7 @@ async def get_user(db: Session, user_id: int) -> Optional[user_model.User]:
     #     .options(joinedload(user_model.User.projects))
     # )
     result = db.query(user_model.User).filter(user_model.User.id == user_id)\
-    .options(joinedload(user_model.User.projects))
+    .options(joinedload(user_model.User.projects).options(joinedload(user_project_model.UserProject.project)))
 
     user: Optional[Tuple[user_model.User]] = result.first()
     return user if user is not None else None

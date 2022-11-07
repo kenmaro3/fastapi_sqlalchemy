@@ -12,6 +12,7 @@ class User(Base):
     password = Column(String(length=30))
 
     # relation
-    projects = relationship("Project", secondary="user_project", back_populates="users")
+    #projects = relationship("Project", secondary="user_project", back_populates="users")
+    projects = relationship("UserProject", back_populates="user")
     ## relation
     #datas = relationship("Data", back_populates="user")

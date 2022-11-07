@@ -15,7 +15,8 @@ class Project(Base):
    name = Column(String(length=30))
 
    # relation
-   users = relationship("User", secondary="user_project", back_populates="projects")
+   #users = relationship("User", secondary="user_project", back_populates="projects")
+   users = relationship("UserProject", back_populates="project")
    ## relation
    #models = relationship("Model", back_populates="project")
    ## relation
