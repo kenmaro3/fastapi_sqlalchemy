@@ -17,6 +17,15 @@ class Project(Base):
    # relation
    #users = relationship("User", secondary="user_project", back_populates="projects")
    users = relationship("UserProject", back_populates="project")
+
+   models = relationship("Model", back_populates="project")
+
+   scalers = relationship("Scaler", back_populates="project")
+
+   datas = relationship("Data", back_populates="project")
+
+   optimizations = relationship("Optimization", back_populates="project")
+
    ## relation
    #models = relationship("Model", back_populates="project")
    ## relation

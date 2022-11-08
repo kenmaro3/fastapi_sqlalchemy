@@ -14,5 +14,7 @@ class User(Base):
     # relation
     #projects = relationship("Project", secondary="user_project", back_populates="users")
     projects = relationship("UserProject", back_populates="user")
+
+    datas = relationship("Data", back_populates="user")
     ## relation
     #datas = relationship("Data", back_populates="user")

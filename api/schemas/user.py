@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 
 from api.schemas.project import Project, ProjectBase
+from api.schemas.data import DataBase
 
 class UserBase(BaseModel):
     id: int = Field(alias="user_id")
@@ -27,6 +28,7 @@ class UserUpdateResponse(UserBase):
 
 class User(UserBase):
     projects: Optional[List[ProjectBase]]
+    datas: Optional[List[DataBase]]
 
     class Config:
         orm_mode = True

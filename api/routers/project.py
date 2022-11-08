@@ -55,7 +55,7 @@ async def join_project(
         raise HTTPException(status_code=404, detail="Project not found")
     
     for user in project.users:
-        if user.id == request_body.user_id:
+        if user.user.id == request_body.user_id:
             raise HTTPException(status_code=405, detail="User already added to this project")
     
     project = await project_crud.add_user_to_project(db, request_body, project)

@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from api.schemas import optimized_value
 
 #from api.schemas.user import UserBase
 
@@ -8,6 +7,32 @@ from api.schemas import optimized_value
 #from api.schemas.preprocess_data import PreprocessData
 #from api.schemas.optimized_value import OptimizedValue
 #from api.schemas.data import Data
+
+class OptimizationBase(BaseModel):
+    parameters: str
+    project_id: int
+
+    class Config:
+        orm_mode = True
+
+class DataBase(BaseModel):
+    ref_x: str
+    ref_y: str
+    user_id: int
+    project_id: int
+    class Config:
+        orm_mode = True
+class ModelBase(BaseModel):
+    project_id: int
+    ref: Optional[str]
+    status: Optional[str]
+    estimated_time: Optional[int]
+    train_start_ts: Optional[str]
+    train_finish_ts: Optional[str]
+    parameters: Optional[str]
+
+    class Config:
+        orm_mode = True
 
 class UserBase(BaseModel):
     id: int = Field(alias="user_id")
@@ -55,7 +80,7 @@ class ProjectUpdateResponse(ProjectBase):
 
 class Project(ProjectBase):
     users: List[UserBase]
-    #models: List[Model]
+    models: List[ModelBase]
     #preprocess_datas: List[PreprocessData]
-    #optimized_values: List[OptimizedValue]
-    #datas: List[Data]
+    optimizations: List[OptimizationBase]
+    datas: List[DataBase]

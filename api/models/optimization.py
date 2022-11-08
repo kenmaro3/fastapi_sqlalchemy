@@ -3,9 +3,16 @@ from sqlalchemy.orm import relationship
 from api.db import Base
 
 
-class OptimizedValue(Base):
-    __tablename__ = "optimized_value"
+class Optimization(Base):
+    __tablename__ = "optimization"
     id = Column(Integer, primary_key=True, autoincrement=True)
+    parameters = Column(String(length=60))
+    optimized_xs_ref = Column(String(length=60))
+
+    models = relationship("Model", back_populates="optimization")
+
+    project_id = Column(Integer, ForeignKey("project.id"))
+    project = relationship("Project", back_populates="optimizations")
 
     ## foreign key
     #model_id = Column(Integer, ForeignKey("model.id"))
